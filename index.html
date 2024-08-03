@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+      }
+
+      .container {
+        text-align: center;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      #display {
+        font-size: 64px;
+        margin-bottom: 30px;
+        color: #333;
+      }
+
+      .buttons button {
+        font-size: 18px;
+        padding: 15px 30px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      #startButton {
+        background-color: #28a745;
+        color: white;
+      }
+
+      #stopButton {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      #resetButton {
+        background-color: #ffc107;
+        color: white;
+      }
+
+      .buttons button:hover {
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="color: red">Stopwatch</h1>
+      <div id="display">00:00:00</div>
+      <div class="buttons">
+        <button id="startButton">Start</button>
+        <button id="stopButton">Stop</button>
+        <button id="resetButton">Reset</button>
+      </div>
+    </div>
+    <script>
+      let hours = 0; // Variable to store hours
+      let minutes = 0; // Variable to store minutes
+      let seconds = 0; // Variable to store seconds
+      let timer; // Variable to store the setInterval function
+
+      // Function to start the stopwatch
+      function startTimer() {
+        timer = setInterval(updateTime, 1000); // Call updateTime every 1 second
+      }
+
+      // Function to stop the stopwatch
+      function stopTimer() {
+        clearInterval(timer); // Clear the interval to stop the timer
+      }
+
+      // Function to reset the stopwatch
+      function resetTimer() {
+        clearInterval(timer); // Clear the interval to stop the timer
+        hours = 0; // Reset hours
+        minutes = 0; // Reset minutes
+        seconds = 0; // Reset seconds
+        document.getElementById("display").innerHTML = "00:00:00"; // Reset the display
+      }
+
+      // Function to update the time
+      function updateTime() {
+        seconds++; // Increment seconds
+        if (seconds == 60) {
+          // Check if seconds reached 60
+          seconds = 0; // Reset seconds
+          minutes++; // Increment minutes
+          if (minutes == 60) {
+            // Check if minutes reached 60
+            minutes = 0; // Reset minutes
+            hours++; // Increment hours
+          }
+        }
+        // Update the display with leading zeros if necessary
+        document.getElementById("display").innerHTML =
+          (hours < 10 ? "0" + hours : hours) +
+          ":" +
+          (minutes < 10 ? "0" + minutes : minutes) +
+          ":" +
+          (seconds < 10 ? "0" + seconds : seconds);
+      }
+
+      // Adding event listeners to buttons
+      document
+        .getElementById("startButton")
+        .addEventListener("click", startTimer); // Start button
+      document
+        .getElementById("stopButton")
+        .addEventListener("click", stopTimer); // Stop button
+      document
+        .getElementById("resetButton")
+        .addEventListener("click", resetTimer); // Reset button
+    </script>
+  </body>
+</html>
